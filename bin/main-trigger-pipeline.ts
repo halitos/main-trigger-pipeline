@@ -6,3 +6,5 @@ import { MainTriggerPipelineStack } from '../lib/main-trigger-pipeline-stack';
 const app = new cdk.App();
 new MainTriggerPipelineStack(app, 'MainTriggerPipelineStack', {
 });
+
+app.synth()
