@@ -16,21 +16,16 @@ export class MainTriggerPipelineStack extends Stack {
       })
     })
 
+    const secondPipelineArn = 'arn:aws:codepipeline:eu-west-1:228194216045:cypresstspipeline'
 
-    pipeline.addStage(new PipelineStage(this, 'TestStage', {
+
+    const TestStage = pipeline.addStage(new PipelineStage(this, 'TestStage', {
       stageName: 'TestStage',
     }))
 
-    // testStage.addPost(new ShellStep('e2e-test', {
-    //   commands: [
 
-    //   ]
-    // }))
-
-    // e2eStage.addPre(new CodeBuildStep('RunCypressTests', {
-    //   commands: [
-    //     ...
-    //   ],
-    // }));
+    TestStage.addPost(new ShellStep('RunCypressTests', {
+      commands: ['aws codepipeline start-pipeline-execution --name cypress-ts-pipeline']
+    }));
   }
 }
